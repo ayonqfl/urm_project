@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}API's{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <h5 class="my-3">Acticity</h5>
+    <div class="container-fluid border border-1 rounded-1 p-4">
+        <form>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Username">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="apiType">API Type</label>
+                    <select class="form-control" id="apiType">
+                        <option value="">Select Type</option>
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="HEAD">HEAD</option>
+                        <option value="DELETE">DELETE</option>
+                        <option value="PATCH">PATCH</option>
+                        <option value="OPTIONS">OPTIONS</option>
+                        <option value="CONNECT">CONNECT</option>
+                        <option value="TRACE">TRACE</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="form-group col-lg-6">
+                    <label for="roles">Roles</label>
+                    <input type="text" class="form-control" id="roles" placeholder="Roles">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="apiType">User Type</label>
+                    <select class="form-control" id="apiType">
+                        <option value="">Select Type</option>
+                        <option value="Admin">Admin</option>
+                        <option value="API">API</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 justify-content-end my-2">
+                <button type="submit" class="btn btn-outline-warning col-lg-1">Reset</button>
+                <button type="submit" class="btn btn-secondary col-lg-1">Filter</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="mt-2 container-fluid border border-1 rounded-1 p-4">
+        <div class="d-flex justify-content-end mb-2">
+            <button type="submit" class="btn btn-success col-lg-1"><i class="fa-solid fa-plus"></i> Create</button>
+        </div>
+        
+        <div class="table-responsive small">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">User</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">API</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">User Type</th>
+                        <th scope="col">Created By</th>
+                        <th scope="col">Created At</th>
+                        <th class="text-end" scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ayonqfl</td>
+                        <td>Normal</td>
+                        <td>http://127.0.0.1:5000/create_user</td>
+                        <td><span class="text-success fw-bold  fs-6">GET</span></td>
+                        <td><span class="text-warning">Admin</span></td>
+                        <td>ayonqfl</td>
+                        <td>25-11-2024</td>
+                        <td class="text-end">
+                            <button type="text" class="btn btn-sm btn-primary">Edit</button>
+                            <button type="text" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+{% endblock %}

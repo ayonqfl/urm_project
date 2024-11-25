@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Create API's{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Create API's</h1>
+    </div>
+
+    <div class="container-fluid border border-1 rounded-1 p-4">
+        <form>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Username">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="apiType">API Type</label>
+                    <select class="form-control" id="apiType">
+                        <option value="GET" selected>GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="HEAD">HEAD</option>
+                        <option value="DELETE">DELETE</option>
+                        <option value="PATCH">PATCH</option>
+                        <option value="OPTIONS">OPTIONS</option>
+                        <option value="CONNECT">CONNECT</option>
+                        <option value="TRACE">TRACE</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="api">API Link</label>
+                <input type="text" class="form-control" id="api" placeholder="API">
+            </div>
+            
+            <div class="form-group mt-2">
+              <label for="details">API Details</label>
+              <textarea class="form-control" id="details" rows="3" placeholder="Details"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-end mt-2">
+                <button type="submit" class="btn btn-success col-lg-1"><i class="fa-solid fa-plus text-sm"></i> Create</button>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

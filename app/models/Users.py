@@ -7,12 +7,12 @@ from app import db
 class Users(db.Model, UserMixin):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), nullable=False, unique=True)
-    email = db.Column(db.String(120), nullable=False, unique=True)
-    password = db.Column(db.String(128), nullable=False)
-    api_token = db.Column(db.String(256), nullable=True, unique=True)
+    id = db.Column(db.Integer(), primary_key=True)
+    username = db.Column(db.String(), nullable=False, unique=True)
+    password = db.Column(db.String(), nullable=False)
     type = db.Column(db.Enum('Admin', 'API', name='user_types'), nullable=False)
+    email = db.Column(db.String(), nullable=True, unique=True)
+    phone = db.Column(db.String(), nullable=True, unique=True)
     details = db.Column(db.Text, nullable=True)
     created_at = db.Column(
         TIMESTAMP(timezone=True), 
@@ -36,7 +36,8 @@ class Users(db.Model, UserMixin):
 # CREATE TABLE users (
 #     id SERIAL PRIMARY KEY,
 #     username VARCHAR NOT NULL UNIQUE,
-#     email VARCHAR NOT NULL UNIQUE,
+#     email VARCHAR NULL UNIQUE,
+#     phone VARCHAR NULL UNIQUE;
 #     password VARCHAR NOT NULL,
 #     api_token VARCHAR UNIQUE,
 #     type user_types NOT NULL,
