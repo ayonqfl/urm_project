@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db
 from app import login_manager
-from ..models import Users
+from ..models import Users, Roles
 
 shared = Blueprint('shared', __name__, template_folder='templates', static_folder='static')
 
@@ -36,6 +36,7 @@ def user_list():
     return render_template('users/accountlist.html')
 
 @shared.route('/create_roles', methods=['GET', 'POST'])
+@login_required
 def create_roles():
     return render_template('users/createroles.html')
 
@@ -52,8 +53,8 @@ def api_list():
     return render_template('users/apilist.html')
 
 
-@shared.route('/create_user', methods=['POST'])
-def create_user():
+@shared.route('/create_superuser', methods=['POST'])
+def create_superuser():
     data = request.get_json()
     print(data)
 
@@ -69,8 +70,8 @@ def create_user():
     if not username or not password or not user_type:
         return jsonify({'error': 'All fields are required'}), 400
 
-    if user_type not in ['Admin', 'API']:
-        return jsonify({'error': 'Invalid user type'}), 400
+    if user_type != 'Admin':
+        return jsonify({'error': 'Invalid superuser type'}), 400
 
     if Users.query.filter(Users.username == username).first():
         return jsonify({'error': 'Username already exists'}), 409

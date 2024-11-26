@@ -11,7 +11,7 @@
     <meta name="generator" content="Hugo 0.122.0">
     <title>URM- {% block title %}{% endblock %}</title>
 
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 
     <style>
         .bd-placeholder-img {
@@ -89,6 +89,21 @@
 
         .bd-mode-toggle .dropdown-menu .active .bi {
             display: block !important;
+        }
+
+        /* toast modified design */
+        .tata-title {
+            display: none !important;
+        }
+        .tata-icon {
+            display: none !important;
+        }
+        .tata-body {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            text-align: start;
+            padding: 5px;
         }
     </style>
 
@@ -171,7 +186,7 @@
 
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center gap-2 {% if request.path == url_for('shared.create_roles') %}text-secondary{% endif %}" href="{{ url_for('shared.create_roles') }}">
-                                    <i class="fas fa-user-tag text-sm"></i> Create Roles
+                                    <i class="fas fa-user-tag text-sm"></i> Create Roles & API's
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -199,8 +214,13 @@
             {% block content %}{% endblock %}
         </div>
     </div>
-    <script src="../static/js/bootstrap.bundle.min.js"></script>
+
+    <div id="toast_msg" style="display:none;"></div>
+    <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/global.js"></script>
     <script src="../static/js/dashboard.js"></script>
+    <script src="../static/js/tata.js"></script>
     
     {% block scripts %}{% endblock %}
 </body>

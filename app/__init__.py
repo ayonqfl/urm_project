@@ -26,5 +26,9 @@ migrate = Migrate(app, db)
 
 # Register blueprints (routes)
 from app.routes.shared import shared
+from app.routes.api import api
+
+
 app.register_blueprint(shared, url_prefix="/")
+app.register_blueprint(api, url_prefix="/api")
 
