@@ -12,6 +12,7 @@
     <title>URM- {% block title %}{% endblock %}</title>
 
     <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/select2.min.css" rel="stylesheet" >
 
     <style>
         .bd-placeholder-img {
@@ -90,6 +91,49 @@
         .bd-mode-toggle .dropdown-menu .active .bi {
             display: block !important;
         }
+
+        /* select2 custom design */
+        /* Light Theme */
+        :root {
+        --select2-bg-color: #fff;
+        --select2-text-color: #212529;
+        --select2-border-color: #ced4da;
+        --select2-hover-bg: #e9ecef;
+        }
+
+        /* Dark Theme */
+        @media (prefers-color-scheme: dark) {
+        :root {
+            --select2-bg-color: #343a40;
+            --select2-text-color: #f8f9fa;
+            --select2-border-color: #495057;
+            --select2-hover-bg: #495057;
+        }
+        }
+
+        /* roles autocomple css */
+        #suggestionRoles li:hover {
+            background-color: #797979;
+            cursor: pointer;
+        }
+
+        /* Apply Theme Variables to Select2 */
+        .select2-container .select2-selection--single {
+        background-color: var(--select2-bg-color);
+        color: var(--select2-text-color);
+        border: 1px solid var(--select2-border-color);
+        border-radius: 0.375rem;
+        }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+        color: var(--select2-text-color);
+        }
+
+        .select2-container--default .select2-results__option--highlighted {
+        background-color: var(--select2-hover-bg);
+        color: var(--select2-text-color);
+        }
+
 
         /* toast modified design */
         .tata-title {
@@ -186,26 +230,16 @@
 
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center gap-2 {% if request.path == url_for('shared.create_roles') %}text-secondary{% endif %}" href="{{ url_for('shared.create_roles') }}">
-                                    <i class="fas fa-user-tag text-sm"></i> Create Roles & API's
+                                    <i class="fas fa-user-tag text-sm"></i> API Roles
                                 </a>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2 {% if request.path == url_for('shared.assign_user_roles') %}text-secondary{% endif %}" href="{{ url_for('shared.assign_user_roles') }}">
-                                    <i class="fa-solid fa-check-double text-sm"></i> Assign User Roles
+                                <a class="nav-link d-flex align-items-center gap-2 {% if request.path == url_for('shared.api_list') %}text-secondary{% endif %}" href="{{ url_for('shared.api_list') }}">
+                                    <i class="fas fa-link text-sm"></i> API's
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link d-flex align-items-center justify-content-between" data-bs-toggle="collapse" data-bs-target="#apiMenu" aria-expanded="false">
-                                    <span><i class="fas fa-link text-sm"></i>&nbsp; API's</span>
-                                    <i class="bi bi-chevron-down"></i>
-                                </a>
-                                <div class="collapse ps-3" id="apiMenu">
-                                    <ul class="list-unstyled">
-                                        <li><a class="nav-link {% if request.path == url_for('shared.create_api') %}text-secondary{% endif %}" href="{{ url_for('shared.create_api') }}"><i class="fa-solid fa-plus text-sm"></i>&nbsp; Create API</a></li>
-                                        <li><a class="nav-link {% if request.path == url_for('shared.api_list') %}text-secondary{% endif %}" href="{{ url_for('shared.api_list') }}"><i class="fa-solid fa-list text-sm"></i>&nbsp; API List</a></li>
-                                    </ul>
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -218,6 +252,7 @@
     <div id="toast_msg" style="display:none;"></div>
     <script src="../static/js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/select2.min.js"></script>
     <script src="../static/js/global.js"></script>
     <script src="../static/js/dashboard.js"></script>
     <script src="../static/js/tata.js"></script>

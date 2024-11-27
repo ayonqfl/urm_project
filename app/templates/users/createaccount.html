@@ -12,11 +12,11 @@
         <form>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label for="username">Username</label>
+                    <label for="username" class="text-muted mb-1">Username</label>
                     <input type="text" class="form-control" id="username" placeholder="Username">
                 </div>
                 <div class="form-group col-lg-6">
-                    <label for="userType">User Type</label>
+                    <label for="userType" class="text-muted mb-1">User Type</label>
                     <select class="form-control" id="userType">
                         <option value="">Select Type</option>
                         <option value="Admin">Admin</option>
@@ -27,33 +27,38 @@
 
             <div class="row mt-2">
                 <div class="form-group col-lg-6">
-                    <label for="password">Password</label>
+                    <label for="password" class="text-muted mb-1">Password</label>
                     <input type="password" class="form-control" id="password" placeholder="Password">
                 </div>
                 <div class="form-group col-lg-6">
-                    <label for="confirmPassword">Confirm Password</label>
+                    <label for="confirmPassword" class="text-muted mb-1">Confirm Password</label>
                     <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="role_name" class="text-muted mb-1">Roles</label>
+                <input type="text" class="form-control" id="role_name" placeholder="Role Name">
+            </div>
+
             <div class="row mt-2">
                 <div class="form-group col-lg-6">
-                    <label for="email">Email <span class="text-muted">(optional)</span></label>
+                    <label for="email" class="text-muted mb-1">Email <span class="text-secondary">(optional)</span></label>
                     <input type="email" class="form-control" id="email" placeholder="Email">
                 </div>
                 <div class="form-group col-lg-6">
-                    <label for="phone">Phone <span class="text-muted">(optional)</span></label>
+                    <label for="phone" class="text-muted mb-1">Phone <span class="text-secondary">(optional)</span></label>
                     <input type="text" class="form-control" id="phone" placeholder="Phone">
                 </div>
             </div>
             
             <div class="form-group mt-2">
-              <label for="details">Details <span class="text-muted">(optional)</span></label>
+              <label for="details" class="text-muted mb-1">Details <span class="text-secondary">(optional)</span></label>
               <textarea class="form-control" id="details" rows="3" placeholder="Details"></textarea>
             </div>
 
             <div class="d-flex justify-content-end mt-2">
-                <button type="submit" class="btn btn-success col-lg-1">Create</button>
+                <button type="submit" class="btn btn-success col-lg-1"><i class="fa-solid fa-plus text-sm"></i> Create</button>
             </div>
         </form>
     </div>

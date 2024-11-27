@@ -3,17 +3,17 @@
 
 {% block content %}
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <h5 class="my-3">Acticity</h5>
+    <h5 class="my-3">API's</h5>
     <div class="container-fluid border border-1 rounded-1 p-4">
         <form>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="Username">
+                    <label for="filter_api_role" class="text-muted mb-2">Role</label>
+                    <input type="text" class="form-control" value="{{ set_role_name or '' }}" id="filter_api_role" placeholder="Role Name">
                 </div>
                 <div class="form-group col-lg-6">
-                    <label for="apiType">API Type</label>
-                    <select class="form-control" id="apiType">
+                    <label for="filter_api_type" class="text-muted mb-2">API Type</label>
+                    <select class="form-control" id="filter_api_type">
                         <option value="">Select Type</option>
                         <option value="GET">GET</option>
                         <option value="POST">POST</option>
@@ -28,64 +28,94 @@
                 </div>
             </div>
 
-            <div class="row mt-2">
-                <div class="form-group col-lg-6">
-                    <label for="roles">Roles</label>
-                    <input type="text" class="form-control" id="roles" placeholder="Roles">
-                </div>
-                <div class="form-group col-lg-6">
-                    <label for="apiType">User Type</label>
-                    <select class="form-control" id="apiType">
-                        <option value="">Select Type</option>
-                        <option value="Admin">Admin</option>
-                        <option value="API">API</option>
-                    </select>
-                </div>
+
+            <div class="form-group mt-3">
+                <label for="filter_api_link" class="text-muted mb-2">API</label>
+                <input type="text" class="form-control" id="filter_api_link" placeholder="API Link">
             </div>
 
+
             <div class="d-flex gap-2 justify-content-end my-2">
-                <button type="submit" class="btn btn-outline-warning col-lg-1">Reset</button>
-                <button type="submit" class="btn btn-secondary col-lg-1">Filter</button>
+                <button type="button" class="btn btn-outline-secondary col-lg-1" onclick="reset_api_filter()">Reset</button>
+                <button type="button" class="btn btn-primary col-lg-1" onclick="get_all_api_list()">Filter</button>
             </div>
         </form>
     </div>
 
     <div class="mt-2 container-fluid border border-1 rounded-1 p-4">
-        <div class="d-flex justify-content-end mb-2">
-            <button type="submit" class="btn btn-success col-lg-1"><i class="fa-solid fa-plus"></i> Create</button>
+        <div class="d-flex gap-2 justify-content-end align-items-center mb-2">
+            <a class="btn btn-sm btn-secondary py-2 col-lg-1" title="Go back to roles" href="{{ url_for('shared.create_roles') }}">Go Back</a>
+            <button type="button" class="btn btn-success col-lg-1" data-bs-toggle="modal" data-bs-target="#addAPIModal"><i class="fa-solid fa-plus"></i> Create</button>
         </div>
         
         <div class="table-responsive small">
             <table class="table table-sm">
                 <thead>
                     <tr>
-                        <th scope="col">User</th>
                         <th scope="col">Role</th>
                         <th scope="col">API</th>
                         <th scope="col">Type</th>
-                        <th scope="col">User Type</th>
-                        <th scope="col">Created By</th>
                         <th scope="col">Created At</th>
                         <th class="text-end" scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>ayonqfl</td>
-                        <td>Normal</td>
-                        <td>http://127.0.0.1:5000/create_superuser</td>
-                        <td><span class="text-success fw-bold  fs-6">GET</span></td>
-                        <td><span class="text-warning">Admin</span></td>
-                        <td>ayonqfl</td>
-                        <td>25-11-2024</td>
-                        <td class="text-end">
-                            <button type="text" class="btn btn-sm btn-primary">Edit</button>
-                            <button type="text" class="btn btn-sm btn-danger">Delete</button>
-                        </td>
-                    </tr>
+                <tbody id="tbody_api_list">
+                    <!-- table body data will add by js -->
                 </tbody>
             </table>
         </div>
     </div>
 </main>
+
+<!-- Create API Modal -->
+<div class="modal fade" id="addAPIModal" tabindex="-1" aria-labelledby="addAPIModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title fs-6" id="addAPIModalLabel">Create API <span id="modalRoleName" class="text-warning"></span></h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label for="api_role_name" class="mb-2 text-muted">Role</label>
+                <input type="text" class="form-control" value="{{ set_role_name or '' }}" id="api_role_name" placeholder="Role Name">
+            </div>
+            <div class="form-group mt-2">
+                <label for="api_type" class="mb-2 text-muted">API Type</label>
+                <select class="form-control" id="api_type">
+                    <option value="GET" selected>GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="HEAD">HEAD</option>
+                    <option value="DELETE">DELETE</option>
+                    <option value="PATCH">PATCH</option>
+                    <option value="OPTIONS">OPTIONS</option>
+                    <option value="CONNECT">CONNECT</option>
+                    <option value="TRACE">TRACE</option>
+                </select>
+            </div>
+            <div class="form-group mt-2">
+                <label for="api_link_text" class="mb-2 text-muted">API Link</label>
+                <input type="text" class="form-control" id="api_link_text" placeholder="API">
+            </div>
+            <div class="form-group mt-2">
+                <label for="api_details" class="mb-2 text-muted">Details <span class="text-secondary">(Optional)</span></label>
+                <textarea class="form-control" id="api_details" rows="3" placeholder="Details"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-end mt-3">
+                <button type="button" class="btn btn-success" onclick="create_api()"><i class="fas fa-plus text-sm"></i>&nbsp;Create</button>
+            </div>
+
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="../../static/js/api_list.js"></script>
 {% endblock %}

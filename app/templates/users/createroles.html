@@ -1,24 +1,42 @@
 {% extends "base.html" %}
-{% block title %}Create Roles & API's{% endblock %}
+{% block title %}Create Roles{% endblock %}
 
 {% block content %}
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Create Role Name</h1>
-    </div>
-
-    <h5 class="text-muted">Create Activity</h5>
+    <h5 class="text-muted mt-2">Roles</h5>
     <div class="container-fluid border border-1 rounded-1 p-4">
-        <form class="row">
-            <div class="col-lg-11">
-                <input type="text" class="form-control" id="role_name" placeholder="Enter Role Name">
+        <!-- <form> -->
+            <div class="row my-2">
+                <div class="col-6 p-0">
+                    <input type="text" class="form-control" id="filter_role_name" placeholder="Enter Role Name">
+                    <ul id="suggestionRoles" class="list-group mt-2" style="display: none;"></ul>
+                </div>
+
+              <div class="col-6">
+                <input type="text" class="form-control" id="filter_created_by" placeholder="Enter Create By">
+              </div>
+                <!-- <div class="form-group">
+                    <label for="filter_role_name" class="mb-2 text-muted">Role Name</label>
+                    <select class="form-control select2" id="filter_role_name">
+                        <option value="">TOD</option>
+                        <option value="OMS">OMS</option>
+                        <option value="OCS">OCS</option>
+                        <option value="DMS">DMS</option>
+                    </select>
+                </div> -->
             </div>
-            <button type="button" class="btn btn-primary col-lg-1" onclick="create_role_name($('#role_name'))"><i class="fa-solid fa-plus text-sm"></i> Add</button>
-        </form>
+            <div class="d-flex gap-2 justify-content-end my-2">
+                <button type="submit" class="btn btn-outline-secondary col-lg-1" onclick="reset_role_filter()">Reset</button>
+                <button type="button" class="btn btn-primary col-lg-1" onclick="get_roles_list()">Filter</button>
+            </div>
+        <!-- </form> -->
     </div>
 
     <div class="mt-2 container-fluid border border-1 rounded-1 p-4">
+        <div class="d-flex justify-content-end mb-2">
+            <button type="submit" class="btn btn-success col-lg-1" title="Create Role" data-bs-toggle="modal" data-bs-target="#createRoleModal"><i class="fa-solid fa-plus"></i> Create</button>
+        </div>
+
         <div class="table-responsive small">
             <table class="table table-sm">
                 <thead>
@@ -29,7 +47,7 @@
                         <th class="text-end" scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody id="tbody_roles_api_list">
+                <tbody id="tbody_roles_list">
                     <!-- table body data will add by js -->
                 </tbody>
             </table>
@@ -37,44 +55,26 @@
     </div>
 </main>
 
-<!-- Creat API Modal -->
-<div class="modal fade" id="addAPIModal" tabindex="-1" aria-labelledby="addAPIModalLabel" aria-hidden="true">
+
+<!-- Create Role Modal -->
+<div class="modal fade" id="createRoleModal" tabindex="-1" aria-labelledby="createRoleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title fs-6" id="addAPIModalLabel">Create API for Role: <span id="modalRoleName" class="text-warning"></span></h4>
+          <h4 class="modal-title fs-6" id="createRoleModalLabel">Create Role Name</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body">        
 
-            <div class="form-group">
-                <label for="apiType" class="mb-2 text-muted">API Type</label>
-                <select class="form-control" id="apiType">
-                    <option value="GET" selected>GET</option>
-                    <option value="POST">POST</option>
-                    <option value="PUT">PUT</option>
-                    <option value="HEAD">HEAD</option>
-                    <option value="DELETE">DELETE</option>
-                    <option value="PATCH">PATCH</option>
-                    <option value="OPTIONS">OPTIONS</option>
-                    <option value="CONNECT">CONNECT</option>
-                    <option value="TRACE">TRACE</option>
-                </select>
-            </div>
             <div class="form-group mt-2">
-                <label for="api" class="mb-2 text-muted">API Link</label>
-                <input type="text" class="form-control" id="api" placeholder="API">
-            </div>
-            <div class="form-group mt-2">
-                <label for="details" class="mb-2 text-muted">Details <span class="text-secondary">(Optional)</span></label>
-                <textarea class="form-control" id="details" rows="3" placeholder="Details"></textarea>
+                <label for="api" class="mb-2 text-muted">Role Name</label>
+                <input type="text" class="form-control" id="role_name" placeholder="Enter Role Name">
             </div>
 
             <div class="d-flex justify-content-end mt-3">
-                <button type="button" class="btn btn-success"><i class="fas fa-plus text-sm"></i>&nbsp;Create</button>
+                <button type="button" class="btn btn-primary" onclick="create_role_name($('#role_name'))"><i class="fa-solid fa-plus text-sm"></i> Create</button>
             </div>
-
         </div>
       </div>
     </div>
@@ -82,5 +82,8 @@
 {% endblock %}
 
 {% block scripts %}
+    <script>
+        const apiListUrl = "{{ url_for('shared.api_list') }}";
+    </script>
     <script src="../../static/js/roles.js"></script>
 {% endblock %}

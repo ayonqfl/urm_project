@@ -40,23 +40,18 @@ def user_list():
 def create_roles():
     return render_template('users/createroles.html')
 
-@shared.route('/assign_user_roles', methods=['GET', 'POST'])
-def assign_user_roles():
-    return render_template('users/assignroles.html')
-
-@shared.route('/create_api', methods=['GET', 'POST'])
-def create_api():
-    return render_template('users/createapi.html')
 
 @shared.route('/api_list', methods=['GET', 'POST'])
+@login_required
 def api_list():
-    return render_template('users/apilist.html')
+    role_name = request.args.get('role_name', None)
+    return render_template('users/apilist.html', set_role_name=role_name)
 
 
 @shared.route('/create_superuser', methods=['POST'])
 def create_superuser():
     data = request.get_json()
-    print(data)
+    # print(data)
 
     if not data:
         return jsonify({'error': 'Missing JSON data'}), 400
@@ -104,6 +99,10 @@ def signin_view():
         password = request.form.get('password')
 
         user = Users.query.filter(Users.username == username).first()
+        if user.type != 'Admin':
+            flash("Invalid username type, please try again!", 'error')
+            return redirect(url_for('shared.signin_view'))
+        
         if user and check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for('shared.dashboard_view'))

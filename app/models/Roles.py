@@ -15,6 +15,12 @@ class Roles(db.Model):
         nullable=False
     )
 
+    apis = db.relationship(
+        'RolesAPI', 
+        backref='role', 
+        cascade='all, delete-orphan'
+    )
+
     def __repr__(self):
         return f"<Role {self.role_name}>"
 
