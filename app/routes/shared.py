@@ -28,10 +28,12 @@ def dashboard_view():
 
 
 @shared.route('/create_account', methods=['GET', 'POST'])
+@login_required
 def create_account():
     return render_template('users/createaccount.html')
 
 @shared.route('/user_list', methods=['GET', 'POST'])
+@login_required
 def user_list():
     return render_template('users/accountlist.html')
 

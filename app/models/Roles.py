@@ -21,6 +21,12 @@ class Roles(db.Model):
         cascade='all, delete-orphan'
     )
 
+    # users_role = db.relationship(
+    #     'UsersRole', 
+    #     backref='usersrole', 
+    #     cascade='all, delete-orphan'
+    # )
+
     def __repr__(self):
         return f"<Role {self.role_name}>"
 

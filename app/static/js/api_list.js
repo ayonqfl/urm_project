@@ -1,18 +1,23 @@
 $(document).ready(function (){
     get_all_api_list();
+    commonAutocomplete($('#filter_api_role'));
 })
 
 
 function create_api(){
+    const urlParams = new URLSearchParams(window.location.search);
+    const roleName = urlParams.get('role_name');
     const params = {
         api_role: $('#api_role_name').val(),
         api_type: $('#api_type').val(),
         api_link: $('#api_link_text').val(),
         api_details: $('#api_details').val()
     }
-    $.get('api//create_api', params)
+    $.get('api/create_api', params)
         .done(function (response) {
-            $('#api_role_name').val('')
+            if (!roleName) {
+                $('#api_role_name').val('');
+            }
             $('#api_type').val('')
             $('#api_link_text').val('')
             $('#api_details').val('')
@@ -46,7 +51,7 @@ function get_all_api_list() {
                             <td>${item.created_at}</td>
                             <td class="text-end">
                                 <button type="text" class="btn btn-sm btn-primary"><i class="fas fa-edit text-sm"></i></button>
-                                <button type="text" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt text-sm"></i></button>
+                                <button type="text" class="btn btn-sm btn-danger" onclick="deleteAPI('${item.id}')"><i class="fas fa-trash-alt text-sm"></i></button>
                             </td>
                         </tr>
                     `;
@@ -64,6 +69,23 @@ function get_all_api_list() {
         .fail(function (error) {
             show_error_message(error.responseJSON.error);
         });
+}
+
+
+function deleteAPI(api_id) {
+    if (confirm('Are you sure you want to delete this role?')) {
+        $.ajax({
+            url: `api/delete_api?api_id=${api_id}`,
+            type: 'DELETE',
+            success: function(response) {
+                show_success_message(response.success);
+                get_all_api_list();
+            },
+            error: function(error) {
+                show_error_message(error.responseJSON.error);
+            }
+        });
+    }
 }
 
 

@@ -5,31 +5,20 @@
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <h5 class="text-muted mt-2">Roles</h5>
     <div class="container-fluid border border-1 rounded-1 p-4">
-        <!-- <form> -->
-            <div class="row my-2">
-                <div class="col-6 p-0">
-                    <input type="text" class="form-control" id="filter_role_name" placeholder="Enter Role Name">
-                    <ul id="suggestionRoles" class="list-group mt-2" style="display: none;"></ul>
-                </div>
+        <div class="row my-2">
+            <div class="col-6 p-0">
+                <input type="text" class="form-control" id="filter_role_name" placeholder="Enter Role Name">
+                <ul id="suggestionRoles" class="list-group mt-2" style="display: none;"></ul>
+            </div>
 
-              <div class="col-6">
+            <div class="col-6">
                 <input type="text" class="form-control" id="filter_created_by" placeholder="Enter Create By">
-              </div>
-                <!-- <div class="form-group">
-                    <label for="filter_role_name" class="mb-2 text-muted">Role Name</label>
-                    <select class="form-control select2" id="filter_role_name">
-                        <option value="">TOD</option>
-                        <option value="OMS">OMS</option>
-                        <option value="OCS">OCS</option>
-                        <option value="DMS">DMS</option>
-                    </select>
-                </div> -->
             </div>
-            <div class="d-flex gap-2 justify-content-end my-2">
-                <button type="submit" class="btn btn-outline-secondary col-lg-1" onclick="reset_role_filter()">Reset</button>
-                <button type="button" class="btn btn-primary col-lg-1" onclick="get_roles_list()">Filter</button>
-            </div>
-        <!-- </form> -->
+        </div>
+        <div class="d-flex gap-2 justify-content-end my-2">
+            <button type="submit" class="btn btn-outline-secondary col-lg-1" onclick="reset_role_filter()">Reset</button>
+            <button type="button" class="btn btn-primary col-lg-1" onclick="get_roles_list()">Filter</button>
+        </div>
     </div>
 
     <div class="mt-2 container-fluid border border-1 rounded-1 p-4">

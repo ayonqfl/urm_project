@@ -1,32 +1,6 @@
 $(document).ready(function (){
     get_roles_list();
-
-    $('#filter_role_name').on('input', function() {
-        var query = $(this).val();
-        if (query.length > 0) {
-            $.get('api/autocompleteRoles', { query: query }, function(data) {
-                var suggestions = $('#suggestionRoles');
-                suggestions.empty(); // Clear any previous suggestions
-                if (data.length > 0) {
-                    data.forEach(function(item) {
-                        suggestions.append('<li class="list-group-item">' + item + '</li>');
-                    });
-                    suggestions.show();
-                } else {
-                    suggestions.hide();
-                }
-            });
-        } else {
-            $('#suggestionRoles').hide();
-        }
-    });
-    
-
-    $(document).on('click', '#suggestionRoles li', function() {
-        var selectedValue = $(this).text();
-        $('#filter_role_name').val(selectedValue);
-        $('#suggestionRoles').hide();
-    });
+    commonAutocomplete($('#filter_role_name'));
 })
 
 
